@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -33,11 +32,9 @@
   --warning: 211, 180, 14;
   --info: 58, 27, 248;
   --body: 188, 188, 188;
-  } 
+}
 
 @layer base {
-  
-
   html {
     @apply h-full;
   }
@@ -99,35 +96,32 @@
   } */
 
   table {
-    @apply w-full text-sm
+    @apply w-full text-sm;
   }
 
   table td {
-      @apply p-1 
+    @apply p-1;
   }
 
   table tr {
-      @apply border-b border-line
+    @apply border-b border-line;
   }
 
   table thead tr {
-      @apply font-semibold
+    @apply font-semibold;
   }
 
   table tbody tr td {
-      @apply  opacity-90 py-2 text-xs
+    @apply opacity-90 py-2 text-xs;
   }
 
   table tbody tr {
-      @apply hover:bg-secondary hover:!bg-opacity-10 
+    @apply hover:bg-secondary hover:!bg-opacity-10;
   }
-
 
   table tbody tr:nth-child(odd) {
-      @apply bg-secondary bg-opacity-20 
+    @apply bg-secondary bg-opacity-20;
   }
-
-
 }
 
 @layer components {
@@ -143,109 +137,104 @@
   }
 
   .table-action {
-    @apply flex gap-5 justify-end
-    }
-
-    .table-action button {
-        @apply relative 
-    }
-
-    .table-action button::before {
-        @apply content-[attr(data-tooltip)] absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] bg-black bg-opacity-80 text-white rounded-sm px-1.5 py-1 leading-none hidden
-    } 
-
-    .table-action button:hover::before {
-        @apply block
-    }
-
-
-    .nav-link {
-      @apply  flex items-center gap-3 opacity-70 hover:opacity-100 px-2 py-1.5  text-sm 
-    }
-
-    .nav-link.active {
-        @apply bg-accent bg-opacity-5 text-accent rounded-md opacity-100
-    }
-
-    .tab-link {
-        @apply pb-2
-    }
-
-    .tab-link.active {
-        @apply border-b border-accent text-accent 
-    }
-
-    .input-wrap {
-      @apply relative mb-1.5
-    }
-
-    .input-wrap label {
-      @apply text-xs
-    }
-
-    .input-wrap input,
-    .input-wrap textarea,
-    .input-wrap select {
-      @apply px-2 py-[4.5px] border-[1px] border-line rounded-md outline-none text-sm text-black focus:border-success w-full
-    }
-
-    .input-wrap textarea {
-      @apply h-[100px]
-    }
-
-    .input-wrap span{
-      @apply absolute top-1 right-1 text-xs text-alert italic
-    }
-
-    .input-wrap:has(.error-show) input {
-      @apply border-accent bg-[#f19da0]
-    }
-
-    .table-action {
-      @apply flex gap-5 justify-end
+    @apply flex gap-5 justify-end;
   }
 
-    .table-action button {
-        @apply relative 
-    }
+  .table-action button {
+    @apply relative;
+  }
 
-    .table-action button::before {
-        @apply content-[attr(data-tooltip)] absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] bg-black bg-opacity-80 text-white rounded-sm px-1.5 py-1 leading-none hidden
-    } 
+  .table-action button::before {
+    @apply content-[attr(data-tooltip)] absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] bg-black bg-opacity-80 text-white rounded-sm px-1.5 py-1 leading-none hidden;
+  }
 
-    .table-action button:hover::before {
-        @apply block
-    }
+  .table-action button:hover::before {
+    @apply block;
+  }
 
+  .nav-link {
+    @apply flex items-center gap-3 opacity-70 hover:opacity-100 px-2 py-1.5  text-sm;
+  }
+
+  .nav-link.active {
+    @apply bg-accent bg-opacity-5 text-accent rounded-md opacity-100;
+  }
+
+  .tab-link {
+    @apply pb-2;
+  }
+
+  .tab-link.active {
+    @apply border-b border-accent text-accent;
+  }
+
+  .input-wrap {
+    @apply relative mb-1.5;
+  }
+
+  .input-wrap label {
+    @apply text-xs;
+  }
+
+  .input-wrap input,
+  .input-wrap textarea,
+  .input-wrap select {
+    @apply px-2 py-[4.5px] border-[1px] border-line rounded-md outline-none text-sm text-black focus:border-success w-full;
+  }
+
+  .input-wrap textarea {
+    @apply h-[100px];
+  }
+
+  .input-wrap span {
+    @apply absolute top-1 right-1 text-xs text-alert italic;
+  }
+
+  .input-wrap:has(.error-show) input {
+    @apply border-accent bg-[#f19da0];
+  }
+
+  .table-action {
+    @apply flex gap-5 justify-end;
+  }
+
+  .table-action button {
+    @apply relative;
+  }
+
+  .table-action button::before {
+    @apply content-[attr(data-tooltip)] absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] bg-black bg-opacity-80 text-white rounded-sm px-1.5 py-1 leading-none hidden;
+  }
+
+  .table-action button:hover::before {
+    @apply block;
+  }
 }
 
 @layer utilities {
   .btn {
-    @apply bg-black rounded-md px-2 py-1.5 text-white text-sm flex gap-2 items-center border border-transparent transition-all
+    @apply bg-black rounded-md px-2 py-1.5 text-white text-sm flex gap-2 items-center border border-transparent transition-all;
   }
 
   .btn-accent {
-      @apply bg-accent hover:bg-opacity-80 
+    @apply bg-accent hover:bg-opacity-80;
   }
   .btn-warning {
-      @apply bg-warning hover:bg-opacity-80 
+    @apply bg-warning hover:bg-opacity-80;
   }
   .btn-cancel {
-      @apply bg-gray-300 hover:bg-opacity-80 text-gray-800 
+    @apply bg-gray-300 hover:bg-opacity-80 text-gray-800;
   }
   .btn-alert {
-      @apply bg-alert hover:bg-opacity-80 
+    @apply bg-alert hover:bg-opacity-80;
   }
   .btn-info {
-      @apply bg-info hover:bg-opacity-80 
+    @apply bg-info hover:bg-opacity-80;
   }
   .btn-success {
-      @apply bg-info hover:bg-opacity-80 
+    @apply bg-info hover:bg-opacity-80;
   }
 }
-
-
-
 
 .spinner circle {
   fill: none;
@@ -271,7 +260,6 @@
   }
 }
 
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -279,6 +267,20 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
+}
+
+ul.slick-dots {
+  @apply absolute bottom-2;
+}
+
+
+
+.slick-dots li button:before {
+  @apply !text-white !text-[10px]
+}
+
+.slick-dots li.slick-active button:before {
+  @apply !text-white;
 }

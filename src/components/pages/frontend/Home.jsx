@@ -1,10 +1,22 @@
 import React from 'react'
-import Banner from './Banner'
+import Header from './Header'
+import BookSlider from './BookSlider'
+import BookSliderBest from './BookSliderBest'
+import Footer from './Footer'
+import Cart from './Cart'
+import AdSlider from './AdSlider'
 
 const Home = () => {
   return (
     <>
-    <Banner/>
+    <Header/>
+    <AdSlider/>
+    <BookSliderBest/>
+    <BookSlider/>
+    <BookSlider/>
+    <BookSlider/>
+    <Footer/>
+    {/* <Cart/> */}
     </>
   )
 }
