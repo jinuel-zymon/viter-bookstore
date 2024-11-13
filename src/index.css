@@ -157,7 +157,7 @@
   }
 
   .nav-link.active {
-    @apply bg-accent bg-opacity-5 text-accent rounded-md opacity-100;
+    @apply bg-[#635C52] bg-opacity-5 text-[#635C52] rounded-md opacity-100 font-bold;
   }
 
   .tab-link {
@@ -165,7 +165,7 @@
   }
 
   .tab-link.active {
-    @apply border-b border-accent text-accent;
+    @apply border-b border-warning text-warning font-bold;
   }
 
   .input-wrap {
@@ -220,7 +220,7 @@
     @apply bg-accent hover:bg-opacity-80;
   }
   .btn-warning {
-    @apply bg-warning hover:bg-opacity-80;
+    @apply bg-warning hover:bg-opacity-80 text-black;
   }
   .btn-cancel {
     @apply bg-gray-300 hover:bg-opacity-80 text-gray-800;

@@ -22,7 +22,7 @@ const Footer = () => {
           </ul>
         </div>
 
-        <p className='text-center font-bold'>© 2024 Leo Bookstore.</p>
+        <p className='text-center font-bold'>© 2024 Leo Book Store.</p>
  
       </div>
     </div>
