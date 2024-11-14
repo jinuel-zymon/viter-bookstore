@@ -1,0 +1,32 @@
+RewriteEngine On
+# use for authentication
+RewriteCond %{HTTP:Authorization} ^(.+)$
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+Header set Access-Control-Allow-Origin *
+
+#################################### ALL FOR DEVELOPER #################################
+
+RewriteRule ^upload-photo$ core/upload-photo.php [L]
+
+
+### Books ###
+RewriteRule ^books$ controllers/developer/books/books.php [L]
+RewriteRule ^books/([0-9]+)$ controllers/developer/books/books.php?booksid=$1 [L]
+RewriteRule ^books/active/([0-9]+)$ controllers/developer/books/active.php?booksid=$1 [L]
+RewriteRule ^books/search$ controllers/developer/books/search.php [L]
+RewriteRule ^books/page/([0-9]+)$ controllers/developer/books/page.php?start=$1 [L]
+
+### Booktype ###
+RewriteRule ^booktype$ controllers/developer/settings/booktype/booktype.php [L]
+RewriteRule ^booktype/([0-9]+)$ controllers/developer/settings/booktype/booktype.php?booktypeid=$1 [L]
+RewriteRule ^booktype/active/([0-9]+)$ controllers/developer/settings/booktype/active.php?booktypeid=$1 [L]
+RewriteRule ^booktype/search$ controllers/developer/settings/booktype/search.php [L]
+RewriteRule ^booktype/page/([0-9]+)$ controllers/developer/settings/booktype/page.php?start=$1 [L]
+
+
+
+
+

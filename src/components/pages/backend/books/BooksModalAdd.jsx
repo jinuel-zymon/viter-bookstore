@@ -3,17 +3,99 @@ import { ImagePlusIcon, X } from 'lucide-react'
 import React from 'react'
 import ModalWrapper from '../partials/modals/ModalWrapper'
 import { InputPhotoUpload, InputText, InputTextArea } from '../../../helpers/formInputs'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { queryData } from '../../../helpers/queryData'
+import useUploadPhoto from '../../../custom-hook/useUploadPhoto'
+import { imgPath } from '../../../helpers/functions-general'
+import SpinnerButton from '../partials/spinners/SpinnerButton'
+import { setIsAdd, setMessage, setSuccess, setValidate } from '../../../store/StoreAction'
+import { StoreContext } from '../../../store/storeContext'
+import * as Yup from 'Yup';
 
-const BooksModalAdd = () => {
+const BooksModalAdd = ({itemEdit}) => {
+  const {dispatch} = React.useContext(StoreContext)
+  const handleClose = () => dispatch(setIsAdd(false))
+  const { uploadPhoto, handleChangePhoto, photo } =
+    useUploadPhoto("/v1/upload-photo");
+
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (values) =>
+      queryData(
+        itemEdit ? `/v1/books/${itemEdit.books_aid}` :`/v1/books`,
+        itemEdit ? "put" : "post",
+        values
+      ),
+    onSuccess: (data) => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({
+        queryKey: ["books"],
+      });
+
+      // show error box
+      if (data.success) {
+        dispatch(setIsAdd(false))
+        dispatch(setSuccess(true))
+        dispatch(setMessage(`Record ${itemEdit ? "Updated" : "Added"}`))
+      } else {
+        dispatch(setValidate(true))
+        dispatch(setMessage(data.error))
+      }
+    },
+  });
+
+
+
+  const initVal = {
+    books_title: itemEdit ? itemEdit.books_title : '',
+    books_author: itemEdit ? itemEdit.books_author : '',
+    books_type: itemEdit ? itemEdit.books_type : '',
+    books_genre: itemEdit ? itemEdit.books_genre : '',
+    books_year: itemEdit ? itemEdit.books_year : '',
+    books_category: itemEdit ? itemEdit.books_category : '',
+    books_summary: itemEdit ? itemEdit.books_summary : '',
+    books_price: itemEdit ? itemEdit.books_price : '',
+    books_title_old: itemEdit ? itemEdit.books_title : '',
+  }
+
+  const yupSchema = Yup.object({
+    books_title: Yup.string().required('Required'),
+    books_author: Yup.string().required('Required'),
+    books_type: Yup.string().required('Required'),
+    books_genre: Yup.string().required('Required'),
+    books_year: Yup.string().required('Required'),
+    books_category: Yup.string().required('Required'),
+    books_summary: Yup.string().required('Required'),
+    books_price: Yup.string().required('Required'),
+  })
+
+
   return (
     <ModalWrapper>
-    <Formik>
+    <Formik
+     initialValues={initVal}
+     validationSchema={yupSchema}
+     onSubmit={async (values) => {
+       mutation.mutate({...values,
+         books_photo:
+           (itemEdit?.books_photo === "" && photo) ||
+           (!photo && "") ||
+           (photo === undefined && "") ||
+           (photo && itemEdit?.books_photo !== photo?.name)
+             ? photo?.name || ""
+             : itemEdit?.books_photo || "",
+       });
+       uploadPhoto();
 
-        <Form >
+     }}
+    >
+ {(props) => {
+            return (
+            <Form >
           <div className="modal-main absolute top-0 right-0 h-[100dvh] w-[320px] bg-primary border-l border-line grid grid-rows-[auto,_1fr,_auto] animate-slideLeft">
             <div className="modal-header p-3 px-4 pb-0 flex justify-between items-center self-start">
-              <h5 className="mb-0">Add Books</h5>
-              <button>
+            <h5 className="mb-0">{itemEdit ? "Edit" : "Add"} Books</h5>
+              <button onClick={handleClose}>
                 <X />
               </button>
             </div>
@@ -22,7 +104,8 @@ const BooksModalAdd = () => {
             <div className="modal-body  p-3 px-4 ">
 
             <div className="input-wrap relative  group input-photo-wrap h-[150px] ">
-                <div className="w-full  rounded-md flex justify-center items-center flex-col h-full">
+                {itemEdit === null && photo === null ? (
+                  <div className="w-full  rounded-md flex justify-center items-center flex-col h-full">
                     <ImagePlusIcon
                       size={50}
                       strokeWidth={1}
@@ -31,13 +114,29 @@ const BooksModalAdd = () => {
                     <small className="opacity-20 group-hover:opacity-50 transition-opacity">
                       Upload Photo
                     </small>
-                </div>
+                  </div>
+                ) : (
+                  <img
+                    src={
+                      photo
+                        ? URL.createObjectURL(photo) // preview
+                        : imgPath + "/" + itemEdit?.books_photo // check db
+                    }
+                    alt="books photo"
+                    className={`group-hover:opacity-30 duration-200 relative object-cover h-full w-full  m-auto ${mutation.isPending ? "opacity-40 pointer-events-none" : ""}`}
+                  />
+                )}
+
 
                 <InputPhotoUpload
                   name="photo"
                   type="file"
+                  id="photo"
+                  accept="image/*"
                   title="Upload photo"
-                  className={`opacity-0 absolute top-0 right-0 bottom-0 left-0 rounded-full  m-auto cursor-pointer w-full h-full`}
+                  onChange={(e) => handleChangePhoto(e)}
+                  onDrop={(e) => handleChangePhoto(e)}
+                  className={`opacity-0 absolute top-0 right-0 bottom-0 left-0 rounded-full  m-auto cursor-pointer w-full h-full ${mutation.isPending ? "pointer-events-none" : ""}`}
                 />
               </div>
 
@@ -46,6 +145,7 @@ const BooksModalAdd = () => {
                   label="Title"
                   type="text"
                   name="books_title"
+                  disabled={mutation.isPending}
                 />
               </div>
 
@@ -54,6 +154,7 @@ const BooksModalAdd = () => {
                   label="Author"
                   type="text"
                   name="books_author"
+                  disabled={mutation.isPending}
                 />
               </div>
 
@@ -62,6 +163,7 @@ const BooksModalAdd = () => {
                   label="Price"
                   type="text"
                   name="books_price"
+                  disabled={mutation.isPending}
                 />
               </div>
 
@@ -70,6 +172,7 @@ const BooksModalAdd = () => {
                   label="Type"
                   type="text"
                   name="books_type"
+                  disabled={mutation.isPending}
                 />
               </div>
 
@@ -78,6 +181,7 @@ const BooksModalAdd = () => {
                   label="Genre"
                   type="text"
                   name="books_genre"
+                  disabled={mutation.isPending}
                 />
               </div>
 
@@ -86,6 +190,7 @@ const BooksModalAdd = () => {
                   label="Year"
                   type="text"
                   name="books_year"
+                  disabled={mutation.isPending}
                 />
               </div>
 
@@ -94,6 +199,7 @@ const BooksModalAdd = () => {
                   label="Category"
                   type="text"
                   name="books_category"
+                  disabled={mutation.isPending}
                 />
               </div>
 
@@ -101,6 +207,7 @@ const BooksModalAdd = () => {
                 <InputTextArea
                   label="Summary"
                   name="books_summary"
+                  disabled={mutation.isPending}
                 />
               </div>
 
@@ -110,17 +217,20 @@ const BooksModalAdd = () => {
                 className="btn btn-warning min-w-[90px] flex justify-center"
                 type="submit"
               >
-                Save
+                {mutation.isPending ? <SpinnerButton/> : 'Save'} 
               </button>
               <button
                 className="btn btn-cancel min-w-[90px] flex justify-center"
-                type="reset"          
+                type="reset" 
+                onClick={handleClose}         
               >
                 Cancel
               </button>
             </div>
           </div>
           </Form>
+            );
+          }}
     </Formik>
       
 </ModalWrapper>

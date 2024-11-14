@@ -1,7 +1,8 @@
-import { setSuccess } from '@/components/store/storeAction'
-import { StoreContext } from '@/components/store/storeContext'
+
 import { CheckCircle, X } from 'lucide-react'
 import React from 'react'
+import { setSuccess } from '../../../store/StoreAction'
+import { StoreContext } from '../../../store/storeContext'
 
 
 const ToastSuccess = () => {

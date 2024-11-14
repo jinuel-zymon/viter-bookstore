@@ -1,18 +1,17 @@
 import { CircleAlert, CircleHelp, X } from "lucide-react";
 import React from "react";
-import ModalWrapper from "./ModalWrapper";
-import { StoreContext } from "@/components/store/StoreContext";
+
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { queryData } from "@/components/helpers/queryData";
-import {
-  setIsDelete,
-  setMessage,
-  setSuccess,
-  setValidate,
-} from "@/components/store/StoreAction";
+import ModalWrapper from "./ModalWrapper";
+import { setIsDelete, setMessage, setSuccess, setValidate } from "../../../../store/StoreAction";
+import { queryData } from "../../../../helpers/queryData";
+import { StoreContext } from "../../../../store/storeContext";
 import SpinnerButton from "../spinners/SpinnerButton";
 
-const ModalDelete = ({ mysqlApiDelete, queryKey, item }) => {
+
+
+const ModalDelete = ({ mysqlApiDelete, queryKey, dataTitle, item }) => {
   const { dispatch } = React.useContext(StoreContext);
 
   const queryClient = useQueryClient();
@@ -60,7 +59,7 @@ const ModalDelete = ({ mysqlApiDelete, queryKey, item }) => {
             <CircleAlert className="stroke-alert" strokeWidth={1} size={30} />
           </div>
           <p className="mt-3 mb-5 text-balance">
-            You are about to remove this record - {item}?. Are you sure you want
+            You are about to remove this record - {dataTitle}? Are you sure you want
             to continue?
           </p>
         </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import { devApiUrl, fetchFormData } from "../helpers/functions-general.jsx";
 import { StoreContext } from "../store/storeContext.jsx";
-import { setError, setMessage } from "../store/storeAction.jsx";
+import { setError, setMessage } from "../store/StoreAction.jsx";
+
 
 
 const useUploadPhoto = (url) => {
