@@ -13,7 +13,7 @@ const Books = () => {
       <Navigation menu="books"/>
     </aside>
     <main className="basis-[calc(100%-200px)] min-h-[100vh] grid grid-rows-[auto_1fr_auto]">
-      <Heading/>
+      <Heading title="Books" subtitle="Manage book list"/>
 
      <BooksTable/>
     

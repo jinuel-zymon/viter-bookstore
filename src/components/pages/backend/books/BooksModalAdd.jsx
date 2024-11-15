@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik'
 import { ImagePlusIcon, X } from 'lucide-react'
 import React from 'react'
 import ModalWrapper from '../partials/modals/ModalWrapper'
-import { InputPhotoUpload, InputText, InputTextArea } from '../../../helpers/formInputs'
+import { InputPhotoUpload, InputSelect, InputText, InputTextArea } from '../../../helpers/formInputs'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { queryData } from '../../../helpers/queryData'
 import useUploadPhoto from '../../../custom-hook/useUploadPhoto'
@@ -11,6 +11,7 @@ import SpinnerButton from '../partials/spinners/SpinnerButton'
 import { setIsAdd, setMessage, setSuccess, setValidate } from '../../../store/StoreAction'
 import { StoreContext } from '../../../store/storeContext'
 import * as Yup from 'Yup';
+import useQueryData from '../../../custom-hook/useQueryData'
 
 const BooksModalAdd = ({itemEdit}) => {
   const {dispatch} = React.useContext(StoreContext)
@@ -44,6 +45,38 @@ const BooksModalAdd = ({itemEdit}) => {
     },
   });
 
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: booktype,
+  } = useQueryData(
+    "/v1/booktype", // endpoint
+    "get", // method
+    "booktype" // key
+  );
+
+  const {
+    isLoading:categoryIsLoading,
+    isFetching:categoryIsFetching,
+    error:categoryError,
+    data: category,
+  } = useQueryData(
+    "/v1/category", // endpoint
+    "get", // method
+    "category" // key
+  );
+
+  const {
+    isLoading:genreIsLoading,
+    isFetching:genreIsFetching,
+    error:genreError,
+    data: genre,
+  } = useQueryData(
+    "/v1/genre", // endpoint
+    "get", // method
+    "genre" // key
+  );
 
 
   const initVal = {
@@ -168,21 +201,45 @@ const BooksModalAdd = ({itemEdit}) => {
               </div>
 
               <div className="input-wrap">
-                <InputText
-                  label="Type"
-                  type="text"
-                  name="books_type"
-                  disabled={mutation.isPending}
-                />
+              <InputSelect
+                    label="Book Type"
+                    name="books_type"
+                    disabled={mutation.isLoading}
+                  >
+                    <optgroup label="Select Book Type">
+                      <option value="" hidden></option>
+                      {!isLoading && booktype?.data.length > 0 ? (
+                        booktype?.data.map((item, key) => (
+                          <option key={key} value={item.booktype_title}>
+                            {item.booktype_title}
+                          </option>
+                        ))
+                      ) : (
+                        <option value="">No data</option>
+                      )}
+                    </optgroup>
+                  </InputSelect>
               </div>
 
               <div className="input-wrap">
-                <InputText
-                  label="Genre"
-                  type="text"
-                  name="books_genre"
-                  disabled={mutation.isPending}
-                />
+              <InputSelect
+                    label="Genre"
+                    name="books_genre"
+                    disabled={mutation.isLoading}
+                  >
+                    <optgroup label="Select Genre">
+                      <option value="" hidden></option>
+                      {!genreIsLoading && genre?.data.length > 0 ? (
+                        genre?.data.map((item, key) => (
+                          <option key={key} value={item.genre_title}>
+                            {item.genre_title}
+                          </option>
+                        ))
+                      ) : (
+                        <option value="">No data</option>
+                      )}
+                    </optgroup>
+                  </InputSelect>
               </div>
 
               <div className="input-wrap">
@@ -195,12 +252,24 @@ const BooksModalAdd = ({itemEdit}) => {
               </div>
 
               <div className="input-wrap">
-                <InputText
-                  label="Category"
-                  type="text"
-                  name="books_category"
-                  disabled={mutation.isPending}
-                />
+              <InputSelect
+                    label="Category"
+                    name="books_category"
+                    disabled={mutation.isLoading}
+                  >
+                    <optgroup label="Select Category">
+                      <option value="" hidden></option>
+                      {!categoryIsLoading && category?.data.length > 0 ? (
+                        category?.data.map((item, key) => (
+                          <option key={key} value={item.category_title}>
+                            {item.category_title}
+                          </option>
+                        ))
+                      ) : (
+                        <option value="">No data</option>
+                      )}
+                    </optgroup>
+                  </InputSelect>
               </div>
 
               <div className="input-wrap relative">

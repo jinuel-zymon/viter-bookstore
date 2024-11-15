@@ -5,6 +5,8 @@ import Books from "./components/pages/backend/books/Books";
 import Settings from "./components/pages/backend/settings/Settings";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StoreProvider } from "./components/store/storeContext";
+import Bestsellers from "./components/pages/backend/bestsellers/Bestsellers";
+import Transaction from "./components/pages/backend/transaction/Transaction";
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -15,6 +17,8 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/admin/books' element={<Books />} />
+            <Route path='/admin/bestsellers' element={<Bestsellers />} />
+            <Route path='/admin/transaction' element={<Transaction />} />
             <Route path='/admin/settings' element={<Settings />} />
           </Routes>
         </Router>

@@ -190,7 +190,9 @@
     @apply absolute top-1 right-1 text-xs text-alert italic;
   }
 
-  .input-wrap:has(.error-show) input {
+  .input-wrap:has(.error-show) input,
+  .input-wrap:has(.error-show) textarea,
+  .input-wrap:has(.error-show) select {
     @apply border-accent bg-[#f19da0];
   }
 

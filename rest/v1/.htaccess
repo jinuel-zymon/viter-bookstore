@@ -19,13 +19,47 @@ RewriteRule ^books/active/([0-9]+)$ controllers/developer/books/active.php?books
 RewriteRule ^books/search$ controllers/developer/books/search.php [L]
 RewriteRule ^books/page/([0-9]+)$ controllers/developer/books/page.php?start=$1 [L]
 
-### Booktype ###
+### Bestsellers ###
+RewriteRule ^bestsellers$ controllers/developer/bestsellers/bestsellers.php [L]
+RewriteRule ^bestsellers/([0-9]+)$ controllers/developer/bestsellers/bestsellers.php?bestsellersid=$1 [L]
+RewriteRule ^bestsellers/active/([0-9]+)$ controllers/developer/bestsellers/active.php?bestsellersid=$1 [L]
+RewriteRule ^bestsellers/search$ controllers/developer/bestsellers/search.php [L]
+RewriteRule ^bestsellers/page/([0-9]+)$ controllers/developer/bestsellers/page.php?start=$1 [L]
+
+### Transaction ###
+RewriteRule ^transaction$ controllers/developer/transaction/transaction.php [L]
+RewriteRule ^transaction/([0-9]+)$ controllers/developer/transaction/transaction.php?transactionid=$1 [L]
+RewriteRule ^transaction/active/([0-9]+)$ controllers/developer/transaction/active.php?transactionid=$1 [L]
+RewriteRule ^transaction/search$ controllers/developer/transaction/search.php [L]
+RewriteRule ^transaction/page/([0-9]+)$ controllers/developer/transaction/page.php?start=$1 [L]
+
+### Booktype (settings) ###
 RewriteRule ^booktype$ controllers/developer/settings/booktype/booktype.php [L]
 RewriteRule ^booktype/([0-9]+)$ controllers/developer/settings/booktype/booktype.php?booktypeid=$1 [L]
 RewriteRule ^booktype/active/([0-9]+)$ controllers/developer/settings/booktype/active.php?booktypeid=$1 [L]
 RewriteRule ^booktype/search$ controllers/developer/settings/booktype/search.php [L]
 RewriteRule ^booktype/page/([0-9]+)$ controllers/developer/settings/booktype/page.php?start=$1 [L]
 
+### Category (settings) ###
+RewriteRule ^category$ controllers/developer/settings/category/category.php [L]
+RewriteRule ^category/([0-9]+)$ controllers/developer/settings/category/category.php?categoryid=$1 [L]
+RewriteRule ^category/active/([0-9]+)$ controllers/developer/settings/category/active.php?categoryid=$1 [L]
+RewriteRule ^category/search$ controllers/developer/settings/category/search.php [L]
+RewriteRule ^category/page/([0-9]+)$ controllers/developer/settings/category/page.php?start=$1 [L]
+
+### Genre (settings) ###
+RewriteRule ^genre$ controllers/developer/settings/genre/genre.php [L]
+RewriteRule ^genre/([0-9]+)$ controllers/developer/settings/genre/genre.php?genreid=$1 [L]
+RewriteRule ^genre/active/([0-9]+)$ controllers/developer/settings/genre/active.php?genreid=$1 [L]
+RewriteRule ^genre/search$ controllers/developer/settings/genre/search.php [L]
+RewriteRule ^genre/page/([0-9]+)$ controllers/developer/settings/genre/page.php?start=$1 [L]
+
+### Mop (settings) ###
+RewriteRule ^mop$ controllers/developer/settings/mop/mop.php [L]
+RewriteRule ^mop/([0-9]+)$ controllers/developer/settings/mop/mop.php?mopid=$1 [L]
+RewriteRule ^mop/active/([0-9]+)$ controllers/developer/settings/mop/active.php?mopid=$1 [L]
+RewriteRule ^mop/search$ controllers/developer/settings/mop/search.php [L]
+RewriteRule ^mop/page/([0-9]+)$ controllers/developer/settings/mop/page.php?start=$1 [L]
 
 
 

@@ -9,9 +9,16 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "./partials/Logo";
 import Searchbar from "../backend/partials/Searchbar";
+import { StoreContext } from "../../store/storeContext";
+import { setIsAdd } from "../../store/StoreAction";
 
-const Header = () => {
+const Header = ({booksCart, bestsellersCart}) => {
+
+  const {dispatch} = React.useContext(StoreContext)
+
   const [scrollPosition, setScrollPosition] = React.useState(0);
+
+  let cartCount = booksCart.length + bestsellersCart.length 
 
   const handleScroll = () => {
     const position = window.scrollY;
@@ -111,9 +118,11 @@ const Header = () => {
               </li>
             </ul>
 
-            <button className='cart-icon relative'>
-              <ShoppingBag stroke={"#382110"} />
-            </button>
+            <button className="relative" onClick={handleOpenCart}>
+        {cartCount > 0 && <span className='absolute -top-2 -left-2 size-[17px] leading-none text-[10px] bg-accent text-white rounded-full grid place-content-center'>{cartCount}</span>}
+       
+        <ShoppingBag stroke={"#382110"} />
+      </button>
           </div>
         </div>
       </header>

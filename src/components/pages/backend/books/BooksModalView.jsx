@@ -35,7 +35,7 @@ const BooksModalView = ({itemEdit,setIsView}) => {
             <h6 className='text-center truncate w-[80%]'>
               {itemEdit.books_title}
             </h6>
-            <h6 className='text-center font-normal mb-3'>by {itemEdit.books_author}</h6>
+            <h6 className='text-center font-normal mb-3 truncate w-[80%]'>by {itemEdit.books_author}</h6>
             <h5 className='text-center text-[#927F64]'>₱ {itemEdit.books_price}</h5>
           </div>
         </div>
